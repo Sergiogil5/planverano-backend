@@ -3,6 +3,7 @@ package com.entrenamiento.planverano.user;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -10,65 +11,70 @@ import java.util.Optional;
 public class RegistroService {
 
     // --- El mapa de códigos que ya tenías ---
-    private static final Map<String, String> CODIGOS_JUGADORES = Map.ofEntries(
-            // ... (AQUÍ VA TU LISTA COMPLETA DE JUGADORES)
-            Map.entry("GORA8392", "RUBEN APARICIO"),
-            Map.entry("GORD1047", "RUSU DENIS"),
-            Map.entry("GOLA3819", "LORIEN ARNAL"),
-            Map.entry("GOMT9254", "MOHAMMED TAGHILTI"),
-            Map.entry("GOJQ6118", "JORGE QUATRONNE P"),
-            Map.entry("GOLA2845", "LUCAS AROYO"),
-            Map.entry("GOPB7402", "PABLO BERDEJO"),
-            Map.entry("GOJC5936", "JESUS CLAVERIA"),
-            Map.entry("GODF1773", "DARIO FELIPE"),
-            Map.entry("GOJC8460", "JAVIER COLELL"),
-            Map.entry("GOPG4921", "PABLO GARCIA"),
-            Map.entry("GONG3305", "NICOLAS GARCIA"),
-            Map.entry("GOHP9588", "HUGO PRADOS"),
-            Map.entry("GODG6241", "DIEGO GELABERT"),
-            Map.entry("GOPL1897", "PEDRO LATORRE"),
-            Map.entry("GOBG7533", "BRUNO GOMEZ"),
-            Map.entry("GOJM5519", "JORGE MARTIN"),
-            Map.entry("GOMJ2964", "MARIO JOSE"),
-            Map.entry("GOAC4170", "ALEX COWASZ"),
-            Map.entry("GOSA6733", "SALIU"),
-            Map.entry("GOTI9201", "TEODOR IVANOV"),
-            Map.entry("GODE4857", "DANIEL ESPEJO"),
-            Map.entry("GOHL1123", "HUGO LOBERA P"),
-            Map.entry("GODM7698", "DANIEL MURCIA"),
-            Map.entry("GOKI3448", "KILIAN"),
-            Map.entry("GOJU8025", "JULEN"),
-            Map.entry("GOMO5381", "MOHA"),
-            Map.entry("GOCR9874", "CRISTIAN"),
-            Map.entry("GOEN6509", "ERIC NAVARRO"),
-            Map.entry("GOUR2216", "URIEL REYES"),
-            Map.entry("GOGS8842", "GEORGE STOICA"),
-            Map.entry("GOPL3177", "PABLO LACOMA"),
-            Map.entry("GOJM9403", "JAVI MIRAMON"),
-            Map.entry("GOVP6650", "VICTOR PARDOS"),
-            Map.entry("GOLG2086", "LUCAS GAUDES"),
-            Map.entry("GOME5714", "MARCOS EZQUERRA"),
-            Map.entry("GOMI1390", "MIGUEL"),
-            Map.entry("GOAT7829", "ALI TAYYAB"),
-            Map.entry("GODC4551", "DAVID CIOCAN"),
-            Map.entry("GORD8138", "RAUL DOMITRASCU"),
-            Map.entry("GORF2815", "ROBERTO FERNANDO"),
-            Map.entry("GOEF5472", "ENRIQUE FLORIA"),
-            Map.entry("GOMT1907", "MIGUEL TORNERO"),
-            Map.entry("GODM6394", "DIEGO MARTINEZ"),
-            Map.entry("GOHN9720", "HUGO NAVARRO"),
-            Map.entry("GODN3056", "DARIO NOGUERAS"),
-            Map.entry("GOAD8612", "ALAN DAYAN"),
-            Map.entry("GORM4383", "RAUL MAG"),
-            Map.entry("GOLB7019", "LOKMAN BENCHOHRA"),
-            Map.entry("GORV2645", "RAUL VILLASANTE"),
-            Map.entry("GOAC5181", "AIMAR CALVO"),
-            Map.entry("GOSD9937", "SEBASTIAN DELGADO"),
-            Map.entry("GOBR1564", "BRAHIM"),
-            Map.entry("GORG4790", "RENAN GIRELLI"),
-            Map.entry("GOYL8228", "YAGO LORENTE"),
-            Map.entry("GOJM7304", "JOSE MANUEL MERINO")
-    );
+    private static final Map<String, String> CODIGOS_JUGADORES;
+
+    static {
+        // ... (AQUÍ VA TU LISTA COMPLETA DE JUGADORES)
+        CODIGOS_JUGADORES = new HashMap<>();
+        CODIGOS_JUGADORES.put("GORA8392", "RUBEN APARICIO");
+        CODIGOS_JUGADORES.put("GORD1047", "RUSU DENIS");
+        CODIGOS_JUGADORES.put("GOLA3819", "LORIEN ARNAL");
+        CODIGOS_JUGADORES.put("GOMT9254", "MOHAMMED TAGHILTI");
+        CODIGOS_JUGADORES.put("GOJQ6118", "JORGE QUATRONNE P");
+        CODIGOS_JUGADORES.put("GOLA2845", "LUCAS AROYO");
+        CODIGOS_JUGADORES.put("GOPB7402", "PABLO BERDEJO");
+        CODIGOS_JUGADORES.put("GOJC5936", "JESUS CLAVERIA");
+        CODIGOS_JUGADORES.put("GODF1773", "DARIO FELIPE");
+        CODIGOS_JUGADORES.put("GOJC8460", "JAVIER COLELL");
+        CODIGOS_JUGADORES.put("GOPG4921", "PABLO GARCIA");
+        CODIGOS_JUGADORES.put("GONG3305", "NICOLAS GARCIA");
+        CODIGOS_JUGADORES.put("GOHP9588", "HUGO PRADOS");
+        CODIGOS_JUGADORES.put("GODG6241", "DIEGO GELABERT");
+        CODIGOS_JUGADORES.put("GOPL1897", "PEDRO LATORRE");
+        CODIGOS_JUGADORES.put("GOBG7533", "BRUNO GOMEZ");
+        CODIGOS_JUGADORES.put("GOJM5519", "JORGE MARTIN");
+        CODIGOS_JUGADORES.put("GOMJ2964", "MARIO JOSE");
+        CODIGOS_JUGADORES.put("GOAC4170", "ALEX COWASZ");
+        CODIGOS_JUGADORES.put("GOSA6733", "SALIU");
+        CODIGOS_JUGADORES.put("GOTI9201", "TEODOR IVANOV");
+        CODIGOS_JUGADORES.put("GODE4857", "DANIEL ESPEJO");
+        CODIGOS_JUGADORES.put("GOHL1123", "HUGO LOBERA P");
+        CODIGOS_JUGADORES.put("GODM7698", "DANIEL MURCIA");
+        CODIGOS_JUGADORES.put("GOKI3448", "KILIAN");
+        CODIGOS_JUGADORES.put("GOJU8025", "JULEN");
+        CODIGOS_JUGADORES.put("GOMO5381", "MOHA");
+        CODIGOS_JUGADORES.put("GOCR9874", "CRISTIAN");
+        CODIGOS_JUGADORES.put("GOEN6509", "ERIC NAVARRO");
+        CODIGOS_JUGADORES.put("GOUR2216", "URIEL REYES");
+        CODIGOS_JUGADORES.put("GOGS8842", "GEORGE STOICA");
+        CODIGOS_JUGADORES.put("GOPL3177", "PABLO LACOMA");
+        CODIGOS_JUGADORES.put("GOJM9403", "JAVI MIRAMON");
+        CODIGOS_JUGADORES.put("GOVP6650", "VICTOR PARDOS");
+        CODIGOS_JUGADORES.put("GOLG2086", "LUCAS GAUDES");
+        CODIGOS_JUGADORES.put("GOME5714", "MARCOS EZQUERRA");
+        CODIGOS_JUGADORES.put("GOMI1390", "MIGUEL");
+        CODIGOS_JUGADORES.put("GOAT7829", "ALI TAYYAB");
+        CODIGOS_JUGADORES.put("GODC4551", "DAVID CIOCAN");
+        CODIGOS_JUGADORES.put("GORD8138", "RAUL DOMITRASCU");
+        CODIGOS_JUGADORES.put("GORF2815", "ROBERTO FERNANDO");
+        CODIGOS_JUGADORES.put("GOEF5472", "ENRIQUE FLORIA");
+        CODIGOS_JUGADORES.put("GOMT1907", "MIGUEL TORNERO");
+        CODIGOS_JUGADORES.put("GODM6394", "DIEGO MARTINEZ");
+        CODIGOS_JUGADORES.put("GOHN9720", "HUGO NAVARRO");
+        CODIGOS_JUGADORES.put("GODN3056", "DARIO NOGUERAS");
+        CODIGOS_JUGADORES.put("GOAD8612", "ALAN DAYAN");
+        CODIGOS_JUGADORES.put("GORM4383", "RAUL MAG");
+        CODIGOS_JUGADORES.put("GOLB7019", "LOKMAN BENCHOHRA");
+        CODIGOS_JUGADORES.put("GORV2645", "RAUL VILLASANTE");
+        CODIGOS_JUGADORES.put("GOAC5181", "AIMAR CALVO");
+        CODIGOS_JUGADORES.put("GOSD9937", "SEBASTIAN DELGADO");
+        CODIGOS_JUGADORES.put("GOBR1564", "BRAHIM");
+        CODIGOS_JUGADORES.put("GORG4790", "RENAN GIRELLI");
+        CODIGOS_JUGADORES.put("GOYL8228", "YAGO LORENTE");
+        CODIGOS_JUGADORES.put("GOJM7304", "JOSE MANUEL MERINO");
+        CODIGOS_JUGADORES.put("GOMS4829", "MATEO SANTA BARBARA");
+    }
+
     private static final String CODIGO_ENTRENADOR = "ENTRENADOR_SERGIO_2024";
     // --- Fin del mapa ---
 
