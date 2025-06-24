@@ -96,6 +96,7 @@ public class RegistroService {
 
 
     // --- ¡REEMPLAZA ESTE MÉTODO POR COMPLETO! ---
+
     public User registrarUsuario(RegistroRequest request) {
         // 1. Validar el código de registro.
         DatosCodigo datosCodigo = validarCodigo(request.codigoRegistro())
@@ -113,20 +114,20 @@ public class RegistroService {
         newUser.setRol(datosCodigo.rol());
         newUser.setCodigoRegistro(request.codigoRegistro());
 
-        // 4. Lógica específica según el rol
+        // 4. Asignar nombre y categoría según el ROL
         if (datosCodigo.rol() == Rol.JUGADOR) {
-            // Para jugadores, el nombre viene del mapa de códigos y la categoría es obligatoria
+            // Para JUGADORES, el nombre viene del mapa de códigos y la categoría es obligatoria
             if (request.categoria() == null) {
                 throw new IllegalStateException("La categoría es obligatoria para el registro de un jugador");
             }
-            newUser.setNombreCompleto(datosCodigo.nombreCompleto());
+            newUser.setNombreCompleto(datosCodigo.nombreCompleto()); // Nombre del mapa
             newUser.setCategoria(request.categoria());
         } else if (datosCodigo.rol() == Rol.ENTRENADOR) {
-            // Para entrenadores, el nombre viene del formulario y la categoría es nula
+            // Para ENTRENADORES, el nombre viene del formulario y es obligatorio
             if (request.nombreCompleto() == null || request.nombreCompleto().isBlank()) {
                 throw new IllegalStateException("El nombre completo es obligatorio para el registro de un entrenador");
             }
-            newUser.setNombreCompleto(request.nombreCompleto());
+            newUser.setNombreCompleto(request.nombreCompleto()); // Nombre del formulario
             newUser.setCategoria(null);
         }
 
