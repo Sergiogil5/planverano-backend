@@ -1,0 +1,33 @@
+### 1. Registrar un jugador con éxito
+POST http://localhost:8080/api/registro
+Content-Type: application/json
+
+{
+  "codigoRegistro": "GORA8392",
+  "email": "ruben.aparicio@test.com",
+  "password": "password123",
+  "categoria": "CADETE"
+}
+
+### 2. Intentar registrar con el mismo email
+POST http://localhost:8080/api/registro
+Content-Type: application/json
+
+{
+  "codigoRegistro": "GORD1047",
+  "email": "ruben.aparicio@test.com",
+  "password": "password456",
+  "categoria": "CADETE"
+}
+
+
+### 3. Intentar registrar con un código falso
+POST http://localhost:8080/api/registro
+Content-Type: application/json
+
+{
+  "codigoRegistro": "CODIGO_FALSO",
+  "email": "falso@test.com",
+  "password": "password789",
+  "categoria": "JUVENIL"
+}
