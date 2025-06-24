@@ -98,40 +98,34 @@ public class RegistroService {
     // --- ¡REEMPLAZA ESTE MÉTODO POR COMPLETO! ---
 
     public User registrarUsuario(RegistroRequest request) {
-        // 1. Validar el código de registro.
         DatosCodigo datosCodigo = validarCodigo(request.codigoRegistro())
                 .orElseThrow(() -> new IllegalStateException("Código de registro inválido"));
 
-        // 2. Comprobar que el email no esté ya en uso.
         if (userRepository.findByEmail(request.email()).isPresent()) {
             throw new IllegalStateException("El correo electrónico ya está en uso");
         }
 
-        // 3. Crear el nuevo usuario.
         User newUser = new User();
         newUser.setEmail(request.email());
         newUser.setPassword(passwordEncoder.encode(request.password()));
         newUser.setRol(datosCodigo.rol());
         newUser.setCodigoRegistro(request.codigoRegistro());
 
-        // 4. Asignar nombre y categoría según el ROL
         if (datosCodigo.rol() == Rol.JUGADOR) {
-            // Para JUGADORES, el nombre viene del mapa de códigos y la categoría es obligatoria
             if (request.categoria() == null) {
                 throw new IllegalStateException("La categoría es obligatoria para el registro de un jugador");
             }
-            newUser.setNombreCompleto(datosCodigo.nombreCompleto()); // Nombre del mapa
+            // ¡LÍNEA CLAVE! Obtenemos el nombre SIEMPRE del mapa de códigos para jugadores
+            newUser.setNombreCompleto(datosCodigo.nombreCompleto());
             newUser.setCategoria(request.categoria());
         } else if (datosCodigo.rol() == Rol.ENTRENADOR) {
-            // Para ENTRENADORES, el nombre viene del formulario y es obligatorio
             if (request.nombreCompleto() == null || request.nombreCompleto().isBlank()) {
                 throw new IllegalStateException("El nombre completo es obligatorio para el registro de un entrenador");
             }
-            newUser.setNombreCompleto(request.nombreCompleto()); // Nombre del formulario
+            newUser.setNombreCompleto(request.nombreCompleto());
             newUser.setCategoria(null);
         }
 
-        // 5. Guardar el nuevo usuario en la base de datos.
         return userRepository.save(newUser);
     }
 }
