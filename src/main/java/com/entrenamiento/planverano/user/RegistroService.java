@@ -106,30 +106,30 @@ public class RegistroService {
 
     // Método para registrar un nuevo usuario
     public User registrarUsuario(RegistroRequest request) {
-        DatosCodigo datosCodigo = validarCodigo(request.codigoRegistro())
+        DatosCodigo datosCodigo = validarCodigo(request.getCodigoRegistro())
                 .orElseThrow(() -> new IllegalStateException("Código de registro inválido"));
 
-        if (userRepository.findByEmail(request.email()).isPresent()) {
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new IllegalStateException("El correo electrónico ya está en uso");
         }
 
         User newUser = new User();
-        newUser.setEmail(request.email());
-        newUser.setPassword(passwordEncoder.encode(request.password()));
+        newUser.setEmail(request.getEmail());
+        newUser.setPassword(passwordEncoder.encode(request.getPassword()));
         newUser.setRol(datosCodigo.rol());
-        newUser.setCodigoRegistro(request.codigoRegistro());
+        newUser.setCodigoRegistro(request.getCodigoRegistro());
 
         if (datosCodigo.rol() == Rol.JUGADOR) {
-            if (request.categoria() == null) {
+            if (request.getCategoria() == null) {
                 throw new IllegalStateException("La categoría es obligatoria para el registro de un jugador");
             }
             newUser.setNombreCompleto(datosCodigo.nombreCompleto());
-            newUser.setCategoria(request.categoria());
+            newUser.setCategoria(request.getCategoria());
         } else if (datosCodigo.rol() == Rol.ENTRENADOR) {
-            if (request.nombreCompleto() == null || request.nombreCompleto().isBlank()) {
+            if (request.getNombreCompleto() == null || request.getNombreCompleto().isBlank()) {
                 throw new IllegalStateException("El nombre completo es obligatorio para el registro de un entrenador");
             }
-            newUser.setNombreCompleto(request.nombreCompleto());
+            newUser.setNombreCompleto(request.getNombreCompleto());
             newUser.setCategoria(null);
         }
 
