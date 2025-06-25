@@ -124,7 +124,7 @@ public class RegistroService {
                 throw new IllegalStateException("La categoría es obligatoria para el registro de un jugador");
             }
             newUser.setNombreCompleto(datosCodigo.nombreCompleto());
-            newUser.setTeam(request.setTeam());
+            newUser.setTeam(request.getTeam());
         } else if (datosCodigo.rol() == Rol.ENTRENADOR) {
             if (request.getNombreCompleto() == null || request.getNombreCompleto().isBlank()) {
                 throw new IllegalStateException("El nombre completo es obligatorio para el registro de un entrenador");
