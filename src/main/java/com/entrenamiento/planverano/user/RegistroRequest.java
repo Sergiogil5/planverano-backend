@@ -1,27 +1,31 @@
 package com.entrenamiento.planverano.user;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+// Ya no necesitamos la importación de @JsonProperty, la eliminamos.
 
-// ¡Hemos cambiado de 'record' a 'class' para más flexibilidad!
 public class RegistroRequest {
     private String codigoRegistro;
     private String email;
     private String password;
-    @JsonProperty("team") // <-- ¡LA LÍNEA MÁGICA!
-    private Categoria categoria;
-    private String nombreCompleto; // Ahora es un campo normal, puede ser null
+    private String nombreCompleto;
 
-    // Getters
+    // --- ¡CAMBIO 1! ---
+    private Categoria team; // El campo ahora se llama 'team'
+
+    // --- Getters ---
     public String getCodigoRegistro() { return codigoRegistro; }
     public String getEmail() { return email; }
     public String getPassword() { return password; }
-    public Categoria getCategoria() { return categoria; }
     public String getNombreCompleto() { return nombreCompleto; }
 
-    // Setters (útiles para el framework)
+    // --- ¡CAMBIO 2! ---
+    public Categoria getTeam() { return team; } // Nuevo Getter para 'team'
+
+    // --- Setters ---
     public void setCodigoRegistro(String codigoRegistro) { this.codigoRegistro = codigoRegistro; }
     public void setEmail(String email) { this.email = email; }
     public void setPassword(String password) { this.password = password; }
-    public void setCategoria(Categoria categoria) { this.categoria = categoria; }
     public void setNombreCompleto(String nombreCompleto) { this.nombreCompleto = nombreCompleto; }
+
+    // --- ¡CAMBIO 3! ---
+    public void setTeam(Categoria team) { this.team = team; } // Nuevo Setter para 'team'
 }

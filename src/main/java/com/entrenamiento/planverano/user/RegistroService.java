@@ -120,17 +120,17 @@ public class RegistroService {
         newUser.setCodigoRegistro(request.getCodigoRegistro());
 
         if (datosCodigo.rol() == Rol.JUGADOR) {
-            if (request.getCategoria() == null) {
+            if (request.getTeam() == null) {
                 throw new IllegalStateException("La categoría es obligatoria para el registro de un jugador");
             }
             newUser.setNombreCompleto(datosCodigo.nombreCompleto());
-            newUser.setCategoria(request.getCategoria());
+            newUser.setTeam(request.setTeam());
         } else if (datosCodigo.rol() == Rol.ENTRENADOR) {
             if (request.getNombreCompleto() == null || request.getNombreCompleto().isBlank()) {
                 throw new IllegalStateException("El nombre completo es obligatorio para el registro de un entrenador");
             }
             newUser.setNombreCompleto(request.getNombreCompleto());
-            newUser.setCategoria(null);
+            newUser.setTeam(null);
         }
 
         return userRepository.save(newUser);
