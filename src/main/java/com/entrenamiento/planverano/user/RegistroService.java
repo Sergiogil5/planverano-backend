@@ -53,7 +53,7 @@ public class RegistroService {
         mapaTemporal.put("GOVP6650", "VICTOR PARDOS");
         mapaTemporal.put("GOLG2086", "LUCAS GAUDES");
         mapaTemporal.put("GOME5714", "MARCOS EZQUERRA");
-        mapaTemporal.put("GOMI1390", "MIGUEL");
+        mapaTemporal.put("GOMI1390", "MIGUEL PORTERO");
         mapaTemporal.put("GOAT7829", "ALI TAYYAB");
         mapaTemporal.put("GODC4551", "DAVID CIOCAN");
         mapaTemporal.put("GORD8138", "RAUL DOMITRASCU");
@@ -73,7 +73,6 @@ public class RegistroService {
         mapaTemporal.put("GORG4790", "RENAN GIRELLI");
         mapaTemporal.put("GOYL8228", "YAGO LORENTE");
         mapaTemporal.put("GOJM7304", "JOSE MANUEL MERINO");
-        // ... (añade el resto de tus jugadores aquí) ...
         mapaTemporal.put("GOMS4829", "MATEO SANTABARBARA");
 
         // Hacemos el mapa final inmutable por seguridad

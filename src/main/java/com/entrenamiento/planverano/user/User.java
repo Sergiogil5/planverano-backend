@@ -25,7 +25,7 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String nombreCompleto; // Nombre y apellidos que sacaremos del código
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String codigoRegistro; // El código único (GORA8392, ENTRENADOR_SERGIO_2024...)
 
     @Enumerated(EnumType.STRING)
