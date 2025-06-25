@@ -1,10 +1,13 @@
 package com.entrenamiento.planverano.user;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 // ¡Hemos cambiado de 'record' a 'class' para más flexibilidad!
 public class RegistroRequest {
     private String codigoRegistro;
     private String email;
     private String password;
+    @JsonProperty("team") // <-- ¡LA LÍNEA MÁGICA!
     private Categoria categoria;
     private String nombreCompleto; // Ahora es un campo normal, puede ser null
 
