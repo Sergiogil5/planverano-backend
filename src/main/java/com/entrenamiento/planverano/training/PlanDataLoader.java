@@ -54,7 +54,7 @@ public class PlanDataLoader implements CommandLineRunner {
         // Día 1
         SesionDiaria s1d1 = new SesionDiaria(1, 1, TipoSesion.ENTRENAMIENTO_GUIADO, "Día 1", "Adaptación Física General");
         BloqueEjercicio b1d1_1 = new BloqueEjercicio(1, 1, 180, List.of(
-                new PasoEjercicio(1, "Carrera suave", TipoMedida.TIEMPO_MINUTOS, 10, 0, gifUrls.get("carrera"))
+                new PasoEjercicio(1, "Carrera suave", TipoMedida.TIEMPO_MINUTOS, 10, 3, gifUrls.get("carrera"))
         ));
         BloqueEjercicio b1d1_2 = new BloqueEjercicio(2, 2, 0, List.of(
                 new PasoEjercicio(1, "Saltos a la comba", TipoMedida.TIEMPO_SEGUNDOS, 150, 30, gifUrls.get("comba"))
@@ -80,7 +80,7 @@ public class PlanDataLoader implements CommandLineRunner {
         // Día 3
         SesionDiaria s1d3 = new SesionDiaria(1, 3, TipoSesion.ENTRENAMIENTO_GUIADO, "Día 3", "Resistencia y Fuerza");
         BloqueEjercicio b1d3_1 = new BloqueEjercicio(1, 1, 300, List.of(
-                new PasoEjercicio(1, "Carrera continua", TipoMedida.TIEMPO_MINUTOS, 15, 0, gifUrls.get("carrera"))
+                new PasoEjercicio(1, "Carrera continua", TipoMedida.TIEMPO_MINUTOS, 15, 5, gifUrls.get("carrera"))
         ));
         BloqueEjercicio b1d3_2 = new BloqueEjercicio(2, 3, 0, List.of(
                 new PasoEjercicio(1, "Skipping alto", TipoMedida.TIEMPO_SEGUNDOS, 30, 30, gifUrls.get("skipping")),
@@ -125,7 +125,7 @@ public class PlanDataLoader implements CommandLineRunner {
         // Día 3
         SesionDiaria s2d3 = new SesionDiaria(2, 3, TipoSesion.ENTRENAMIENTO_GUIADO, "Día 3", "Resistencia y Fuerza");
         BloqueEjercicio b2d3_1 = new BloqueEjercicio(1, 1, 300, List.of(
-                new PasoEjercicio(1, "Carrera continua", TipoMedida.TIEMPO_MINUTOS, 20, 0, gifUrls.get("carrera"))
+                new PasoEjercicio(1, "Carrera continua", TipoMedida.TIEMPO_MINUTOS, 20, 5, gifUrls.get("carrera"))
         ));
         BloqueEjercicio b2d3_2 = new BloqueEjercicio(2, 3, 0, List.of(
                 new PasoEjercicio(1, "Skipping alto", TipoMedida.TIEMPO_SEGUNDOS, 30, 30, gifUrls.get("skipping")),
