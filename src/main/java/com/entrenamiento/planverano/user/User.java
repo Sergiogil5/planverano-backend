@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -32,99 +31,36 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private Rol rol;
 
-    // --- ¡AQUÍ ESTÁ EL CAMBIO PRINCIPAL! ---
     @Enumerated(EnumType.STRING)
-    private Categoria team; // El campo ahora se llama 'team'
+    private Categoria team; // El campo se llama 'team' y es de tipo 'Categoria'
 
     // --- Getters y Setters ---
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+    public String getNombreCompleto() { return nombreCompleto; }
+    public void setNombreCompleto(String nombreCompleto) { this.nombreCompleto = nombreCompleto; }
+    public String getCodigoRegistro() { return codigoRegistro; }
+    public void setCodigoRegistro(String codigoRegistro) { this.codigoRegistro = codigoRegistro; }
+    public Rol getRol() { return rol; }
+    public void setRol(Rol rol) { this.rol = rol; }
+    public Categoria getTeam() { return team; }
+    public void setTeam(Categoria team) { this.team = team; }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getNombreCompleto() {
-        return nombreCompleto;
-    }
-
-    public void setNombreCompleto(String nombreCompleto) {
-        this.nombreCompleto = nombreCompleto;
-    }
-
-    public String getCodigoRegistro() {
-        return codigoRegistro;
-    }
-
-    public void setCodigoRegistro(String codigoRegistro) {
-        this.codigoRegistro = codigoRegistro;
-    }
-
-    public Rol getRol() {
-        return rol;
-    }
-
-    public void setRol(Rol rol) {
-        this.rol = rol;
-    }
-
-    // --- ¡AQUÍ ESTÁN LOS GETTERS/SETTERS ACTUALIZADOS! ---
-    public Categoria getTeam() {
-        return team;
-    }
-
-    public void setTeam(Categoria team) {
-        this.team = team;
-    }
-
-
-    // --- Métodos de UserDetails (no necesitan cambios, pero se quedan) ---
+    // --- Métodos de UserDetails ---
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(rol.name()));
-    }
-
+    public Collection<? extends GrantedAuthority> getAuthorities() { return List.of(new SimpleGrantedAuthority(rol.name())); }
     @Override
-    public String getPassword() {
-        return password;
-    }
-
+    public String getUsername() { return email; }
     @Override
-    public String getUsername() {
-        return email;
-    }
-
+    public boolean isAccountNonExpired() { return true; }
     @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
+    public boolean isAccountNonLocked() { return true; }
     @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
+    public boolean isCredentialsNonExpired() { return true; }
     @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+    public boolean isEnabled() { return true; }
 }
