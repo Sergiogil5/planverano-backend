@@ -6,40 +6,61 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional; // Asegúrate de que esta importación está
 
 @Service
 @RequiredArgsConstructor
 public class ProgresoService {
 
+    // --- ¡AQUÍ ESTÁ LA CLAVE! ---
+    // El constructor que crea Lombok necesita estos 3 repositorios.
     private final ProgresoJugadorRepository progresoRepository;
     private final SesionDiariaRepository sesionRepository;
+    private final SesionPausadaRepository pausaRepository;
 
-    // Método para guardar un nuevo progreso
+
+    // Método para guardar un nuevo progreso completo
     public ProgresoJugador guardarProgreso(User usuario, ProgresoRequest request) {
-        // 1. Buscamos la sesión de entrenamiento que el usuario dice haber completado
         SesionDiaria sesion = sesionRepository.findById(request.sesionId())
                 .orElseThrow(() -> new RuntimeException("Sesión no encontrada con ID: " + request.sesionId()));
 
-        // 2. Creamos la nueva ficha de progreso
         ProgresoJugador nuevoProgreso = new ProgresoJugador();
-        nuevoProgreso.setUsuario(usuario); // El usuario que está autenticado
+        nuevoProgreso.setUsuario(usuario);
         nuevoProgreso.setSesion(sesion);
-        nuevoProgreso.setFechaCompletado(LocalDateTime.now()); // La fecha y hora actuales
-
-        // 3. Asignamos los datos del feedback
+        nuevoProgreso.setFechaCompletado(LocalDateTime.now());
         nuevoProgreso.setFeedbackEmoji(request.feedbackEmoji());
         nuevoProgreso.setFeedbackLabel(request.feedbackLabel());
         nuevoProgreso.setFeedbackTextoOpcional(request.feedbackTextoOpcional());
-
-        // 4. Asignamos los datos de rendimiento (los JSON)
         nuevoProgreso.setTiemposJson(request.tiemposJson());
         nuevoProgreso.setRutaGpsJson(request.rutaGpsJson());
 
-        // 5. Guardamos en la base de datos y devolvemos el objeto guardado
         return progresoRepository.save(nuevoProgreso);
     }
 
-    // Método para que un entrenador vea el progreso de un jugador
+    // Método para guardar una sesión pausada
+    public void guardarPausa(User usuario, PausaRequest request) {
+        pausaRepository.findByUsuarioId(usuario.getId()).ifPresent(pausaRepository::delete);
+
+        SesionDiaria sesion = sesionRepository.findById(request.sesionDiariaId())
+                .orElseThrow(() -> new RuntimeException("Sesion Diaria no encontrada"));
+
+        SesionPausada nuevaPausa = new SesionPausada();
+        nuevaPausa.setUsuario(usuario);
+        nuevaPausa.setSesionDiaria(sesion);
+        nuevaPausa.setUltimoEjercicioIndex(request.ultimoEjercicioIndex());
+        nuevaPausa.setFase(request.fase());
+        nuevaPausa.setTiempoRestanteSeg(request.tiempoRestanteSeg());
+        nuevaPausa.setDuracionInicialSeg(request.duracionInicialSeg());
+
+        pausaRepository.save(nuevaPausa);
+    }
+
+    // Método para obtener una sesión pausada
+    public Optional<SesionPausada> getPausa(User usuario) {
+        return pausaRepository.findByUsuarioId(usuario.getId());
+    }
+
+    // Método para que un entrenador (o el propio usuario) vea su progreso
     public List<ProgresoJugador> getProgresoPorJugador(Long usuarioId) {
         return progresoRepository.findByUsuarioId(usuarioId);
     }

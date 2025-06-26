@@ -36,4 +36,20 @@ public class ProgresoController {
         List<ProgresoJugador> progresos = progresoService.getProgresoPorJugador(jugadorId);
         return ResponseEntity.ok(progresos);
     }
+
+    // Endpoint para que el usuario autenticado pida TODO su progreso guardado
+    @GetMapping("/mis-progresos")
+    public ResponseEntity<List<ProgresoJugador>> getMisProgresos(Authentication authentication) {
+        User usuarioActual = (User) authentication.getPrincipal();
+        return ResponseEntity.ok(progresoService.getProgresoPorJugador(usuarioActual.getId()));
+    }
+
+    // Endpoint para que el usuario autenticado pida su sesión pausada, si existe
+    @GetMapping("/mi-pausa")
+    public ResponseEntity<SesionPausada> getMiPausa(Authentication authentication) {
+        User usuarioActual = (User) authentication.getPrincipal();
+        return progresoService.getPausa(usuarioActual)
+                .map(ResponseEntity::ok) // Si existe, la devuelve con un 200 OK
+                .orElse(ResponseEntity.noContent().build()); // Si no existe, devuelve un 204 No Content
+    }
 }
