@@ -86,3 +86,5 @@ public class User implements UserDetails {
     @JsonIgnore
     public boolean isEnabled() { return true; }
 }
+
+// me encanta la programación ...
