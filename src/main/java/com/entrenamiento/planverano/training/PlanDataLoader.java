@@ -10,9 +10,19 @@ import java.util.Map;
 public class PlanDataLoader implements CommandLineRunner {
 
     private final SesionDiariaRepository sesionDiariaRepository;
+    private static final Map<Integer, String> titulosSemanas = Map.of(
+            1, "Semana 1 (Adaptación – 3 días de entrenamiento)",
+            2, "Semana 2 (4 días de entrenamiento)",
+            3, "Semana 3 (5 días de entrenamiento, se añade balón en 2 días)",
+            4, "Semana 4 (6 días de entrenamiento, mayor intensidad y balón en 2 días)",
+            5, "Semana 5 (Última semana antes de pretemporada, máxima intensidad)"
+    );
 
     public PlanDataLoader(SesionDiariaRepository sesionDiariaRepository) {
         this.sesionDiariaRepository = sesionDiariaRepository;
+    }
+    public String getTituloSemana(int numeroSemana) {
+        return titulosSemanas.getOrDefault(numeroSemana, "Semana Desconocida");
     }
 
     @Override
