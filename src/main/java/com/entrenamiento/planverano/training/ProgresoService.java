@@ -1,6 +1,7 @@
 package com.entrenamiento.planverano.training;
 
 import com.entrenamiento.planverano.user.User;
+import com.entrenamiento.planverano.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,15 +18,24 @@ public class ProgresoService {
     private final ProgresoJugadorRepository progresoRepository;
     private final SesionDiariaRepository sesionRepository;
     private final SesionPausadaRepository pausaRepository;
+    private final UserRepository userRepository;
+
 
 
     // Método para guardar un nuevo progreso completo
     public ProgresoJugador guardarProgreso(User usuario, ProgresoRequest request) {
+        // --- ¡LÍNEA CLAVE DE LA SOLUCIÓN! ---
+        // Antes de hacer nada, obtenemos la versión "viva" y "conectada" del usuario
+        // desde la base de datos, usando el ID del usuario que viene del token.
+        User usuarioConectado = userRepository.findById(usuario.getId())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado en la BD, ¡esto no debería pasar!"));
+
+        // El resto del código es igual, pero ahora usamos 'usuarioConectado'
         SesionDiaria sesion = sesionRepository.findById(request.sesionId())
                 .orElseThrow(() -> new RuntimeException("Sesión no encontrada con ID: " + request.sesionId()));
 
         ProgresoJugador nuevoProgreso = new ProgresoJugador();
-        nuevoProgreso.setUsuario(usuario);
+        nuevoProgreso.setUsuario(usuarioConectado); // <-- ¡USAMOS LA VERSIÓN CONECTADA!
         nuevoProgreso.setSesion(sesion);
         nuevoProgreso.setFechaCompletado(LocalDateTime.now());
         nuevoProgreso.setFeedbackEmoji(request.feedbackEmoji());

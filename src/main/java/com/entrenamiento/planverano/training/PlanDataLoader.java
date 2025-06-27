@@ -64,7 +64,7 @@ public class PlanDataLoader implements CommandLineRunner {
         // Día 1
         SesionDiaria s1d1 = new SesionDiaria(1, 1, TipoSesion.ENTRENAMIENTO_GUIADO, "Día 1", "Adaptación Física General");
         BloqueEjercicio b1d1_1 = new BloqueEjercicio(1, 1, 180, List.of(
-                new PasoEjercicio(1, "Carrera suave", TipoMedida.TIEMPO_MINUTOS, 10, 3, gifUrls.get("carrera"))
+                new PasoEjercicio(1, "Carrera suave", TipoMedida.TIEMPO_MINUTOS, 10, 180, gifUrls.get("carrera"))
         ));
         BloqueEjercicio b1d1_2 = new BloqueEjercicio(2, 2, 0, List.of(
                 new PasoEjercicio(1, "Saltos a la comba", TipoMedida.TIEMPO_SEGUNDOS, 150, 30, gifUrls.get("comba"))
