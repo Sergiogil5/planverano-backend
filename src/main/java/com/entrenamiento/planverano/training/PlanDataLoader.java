@@ -90,7 +90,7 @@ public class PlanDataLoader implements CommandLineRunner {
         // Día 3
         SesionDiaria s1d3 = new SesionDiaria(1, 3, TipoSesion.ENTRENAMIENTO_GUIADO, "Día 3", "Resistencia y Fuerza");
         BloqueEjercicio b1d3_1 = new BloqueEjercicio(1, 1, 300, List.of(
-                new PasoEjercicio(1, "Carrera continua", TipoMedida.TIEMPO_MINUTOS, 15, 5, gifUrls.get("carrera"))
+                new PasoEjercicio(1, "Carrera continua", TipoMedida.TIEMPO_MINUTOS, 15, 300, gifUrls.get("carrera"))
         ));
         BloqueEjercicio b1d3_2 = new BloqueEjercicio(2, 3, 0, List.of(
                 new PasoEjercicio(1, "Skipping alto", TipoMedida.TIEMPO_SEGUNDOS, 30, 30, gifUrls.get("skipping")),
@@ -135,7 +135,7 @@ public class PlanDataLoader implements CommandLineRunner {
         // Día 3
         SesionDiaria s2d3 = new SesionDiaria(2, 3, TipoSesion.ENTRENAMIENTO_GUIADO, "Día 3", "Resistencia y Fuerza");
         BloqueEjercicio b2d3_1 = new BloqueEjercicio(1, 1, 300, List.of(
-                new PasoEjercicio(1, "Carrera continua", TipoMedida.TIEMPO_MINUTOS, 20, 5, gifUrls.get("carrera"))
+                new PasoEjercicio(1, "Carrera continua", TipoMedida.TIEMPO_MINUTOS, 20, 300, gifUrls.get("carrera"))
         ));
         BloqueEjercicio b2d3_2 = new BloqueEjercicio(2, 3, 0, List.of(
                 new PasoEjercicio(1, "Skipping alto", TipoMedida.TIEMPO_SEGUNDOS, 30, 30, gifUrls.get("skipping")),
@@ -188,7 +188,7 @@ public class PlanDataLoader implements CommandLineRunner {
         // Día 3
         SesionDiaria s3d3 = new SesionDiaria(3, 3, TipoSesion.ENTRENAMIENTO_GUIADO, "Día 3", "Resistencia y Core");
         BloqueEjercicio b3d3_1 = new BloqueEjercicio(1, 1, 300, List.of(
-                new PasoEjercicio(1, "Carrera continua", TipoMedida.TIEMPO_MINUTOS, 20, 0, gifUrls.get("carrera"))
+                new PasoEjercicio(1, "Carrera continua", TipoMedida.TIEMPO_MINUTOS, 20, 300, gifUrls.get("carrera"))
         ));
         BloqueEjercicio b3d3_2 = new BloqueEjercicio(2, 3, 0, List.of(
                 new PasoEjercicio(1, "Skipping alto", TipoMedida.TIEMPO_SEGUNDOS, 30, 30, gifUrls.get("skipping")),
@@ -260,7 +260,7 @@ public class PlanDataLoader implements CommandLineRunner {
         // Día 3
         SesionDiaria s4d3 = new SesionDiaria(4, 3, TipoSesion.ENTRENAMIENTO_GUIADO, "Día 3", "Resistencia de Alta Intensidad");
         BloqueEjercicio b4d3_1 = new BloqueEjercicio(1, 1, 300, List.of(
-                new PasoEjercicio(1, "Carrera continua", TipoMedida.TIEMPO_MINUTOS, 30, 0, gifUrls.get("carrera"))
+                new PasoEjercicio(1, "Carrera continua", TipoMedida.TIEMPO_MINUTOS, 30, 300, gifUrls.get("carrera"))
         ));
         BloqueEjercicio b4d3_2 = new BloqueEjercicio(2, 3, 0, List.of(
                 new PasoEjercicio(1, "Zancadas", TipoMedida.REPETICIONES, 20, 30, gifUrls.get("zancadas")),
