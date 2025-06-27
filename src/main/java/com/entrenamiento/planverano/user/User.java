@@ -42,7 +42,7 @@ public class User implements UserDetails {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
     public String getNombreCompleto() { return nombreCompleto; }
-    public void setNombreCompleto(String nombreCompleto) { this.nombreCompleto = nombreCompleto; }
+    public void setNombreCompleto(String n) { this.nombreCompleto = n; }
     public String getCodigoRegistro() { return codigoRegistro; }
     public void setCodigoRegistro(String codigoRegistro) { this.codigoRegistro = codigoRegistro; }
     public Rol getRol() { return rol; }
