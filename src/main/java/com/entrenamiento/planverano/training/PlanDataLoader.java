@@ -37,7 +37,7 @@ public class PlanDataLoader implements CommandLineRunner {
     /**
      * Crea y guarda en la base de datos el plan de entrenamiento completo de 5 semanas.
      * Cada PasoEjercicio ahora incluye una URL a un GIF demostrativo.
-     *
+
      * NOTA: Se asume que el constructor de PasoEjercicio es:
      * new PasoEjercicio(orden, nombre, tipoMedida, valor, descanso, urlGif)
      */

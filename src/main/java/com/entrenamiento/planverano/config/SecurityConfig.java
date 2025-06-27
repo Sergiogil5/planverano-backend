@@ -68,14 +68,24 @@ public class SecurityConfig {
     }
 
     // --- CADENA DE FILTROS ACTUALIZADA ---
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthenticationFilter jwtAuthFilter, AuthenticationProvider authenticationProvider) throws Exception {
         http
-                .cors(withDefaults()) // <-- ¡ACTIVAMOS LA CONFIGURACIÓN CORS!
+                .cors(withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
+                // --- ¡SECCIÓN DE AUTORIZACIÓN CORREGIDA Y MÁS CLARA! ---
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**", "/api/registro/**").permitAll()
-                        .anyRequest().authenticated()
+                        // 1. Rutas Públicas: Permitimos el registro y el login a todo el mundo.
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/registro/**").permitAll()
+
+                        // 2. Rutas Protegidas: Especificamos que CUALQUIER otra ruta bajo /api/
+                        //    requiere que el usuario esté autenticado (que tenga un token válido).
+                        .requestMatchers("/api/**").authenticated()
+
+                        // 3. Opcional pero recomendado: Denegar todo lo demás por defecto.
+                        .anyRequest().denyAll()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
