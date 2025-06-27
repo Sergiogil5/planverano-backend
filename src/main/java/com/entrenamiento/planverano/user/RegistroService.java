@@ -121,7 +121,7 @@ public class RegistroService {
 
         if (datosCodigo.rol() == Rol.JUGADOR) {
             if (request.getTeam() == null) {
-                throw new IllegalStateException("La categoría es obligatoria para el registro de un jugador");
+                throw new IllegalStateException("El equipo (team) es obligatorio para el registro de un jugador");
             }
             newUser.setNombreCompleto(datosCodigo.nombreCompleto());
             newUser.setTeam(request.getTeam());
@@ -132,6 +132,11 @@ public class RegistroService {
             newUser.setNombreCompleto(request.getNombreCompleto());
             newUser.setTeam(null);
         }
+
+        // --- CAMBIO CLAVE ---
+        // En lugar de devolverlo directamente, lo guardamos en una variable.
+        User usuarioGuardado = userRepository.save(newUser);
+        System.out.println(">>> [DEBUG] Se ha guardado un usuario con ID: " + usuarioGuardado.getId() + " y rol: " + usuarioGuardado.getRol());
 
         return userRepository.save(newUser);
     }
