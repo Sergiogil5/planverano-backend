@@ -18,4 +18,8 @@ public class UserService {
                 .filter(user -> user.getRol() == Rol.JUGADOR)
                 .collect(Collectors.toList());
     }
+
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
 }
