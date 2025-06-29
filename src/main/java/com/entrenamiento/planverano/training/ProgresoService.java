@@ -4,6 +4,7 @@ import com.entrenamiento.planverano.user.User;
 import com.entrenamiento.planverano.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,19 +24,21 @@ public class ProgresoService {
 
 
     // Método para guardar un nuevo progreso completo
+    @Transactional // <-- ¡AÑADE ESTA ANOTACIÓN IMPORTANTE!
     public ProgresoJugador guardarProgreso(User usuario, ProgresoRequest request) {
-        // --- ¡LÍNEA CLAVE DE LA SOLUCIÓN! ---
-        // Antes de hacer nada, obtenemos la versión "viva" y "conectada" del usuario
-        // desde la base de datos, usando el ID del usuario que viene del token.
+        // 1. Buscamos las entidades relacionadas. Esto no cambia.
         User usuarioConectado = userRepository.findById(usuario.getId())
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado en la BD, ¡esto no debería pasar!"));
+                .orElseThrow(() -> new IllegalStateException("Usuario no encontrado en la BD con ID: " + usuario.getId()));
 
-        // El resto del código es igual, pero ahora usamos 'usuarioConectado'
         SesionDiaria sesion = sesionRepository.findById(request.sesionId())
                 .orElseThrow(() -> new RuntimeException("Sesión no encontrada con ID: " + request.sesionId()));
 
+        // 2. --- ¡LÓGICA CORREGIDA! ---
+        // Creamos un objeto ProgresoJugador COMPLETAMENTE NUEVO.
+        // Al no tener ID, JPA está OBLIGADO a hacer un INSERT.
         ProgresoJugador nuevoProgreso = new ProgresoJugador();
-        nuevoProgreso.setUsuario(usuarioConectado); // <-- ¡USAMOS LA VERSIÓN CONECTADA!
+
+        nuevoProgreso.setUsuario(usuarioConectado);
         nuevoProgreso.setSesion(sesion);
         nuevoProgreso.setFechaCompletado(LocalDateTime.now());
         nuevoProgreso.setFeedbackEmoji(request.feedbackEmoji());
@@ -44,6 +47,7 @@ public class ProgresoService {
         nuevoProgreso.setTiemposJson(request.tiemposJson());
         nuevoProgreso.setRutaGpsJson(request.rutaGpsJson());
 
+        // 3. Guardamos la nueva entidad.
         return progresoRepository.save(nuevoProgreso);
     }
 
