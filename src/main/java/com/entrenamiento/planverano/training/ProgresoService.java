@@ -52,14 +52,17 @@ public class ProgresoService {
     }
 
     // Método para guardar una sesión pausada
+    @Transactional
     public void guardarPausa(User usuario, PausaRequest request) {
-        pausaRepository.findByUsuarioId(usuario.getId()).ifPresent(pausaRepository::delete);
+        User usuarioConectado = userRepository.findById(usuario.getId())
+                .orElseThrow(() -> new IllegalStateException("Usuario no encontrado al pausar. ID: " + usuario.getId()));
+        pausaRepository.findByUsuarioId(usuarioConectado.getId()).ifPresent(pausaRepository::delete);
 
         SesionDiaria sesion = sesionRepository.findById(request.sesionDiariaId())
-                .orElseThrow(() -> new RuntimeException("Sesion Diaria no encontrada"));
+                .orElseThrow(() -> new RuntimeException("Sesion Diaria no encontrada al pausar"));
 
         SesionPausada nuevaPausa = new SesionPausada();
-        nuevaPausa.setUsuario(usuario);
+        nuevaPausa.setUsuario(usuarioConectado);
         nuevaPausa.setSesionDiaria(sesion);
         nuevaPausa.setUltimoEjercicioIndex(request.ultimoEjercicioIndex());
         nuevaPausa.setFase(request.fase());
