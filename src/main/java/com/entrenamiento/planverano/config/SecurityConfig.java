@@ -59,7 +59,7 @@ public class SecurityConfig {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         // Permitimos el origen de tu app local y el de la app ya desplegada (cuando la despleguemos)
-        configuration.setAllowedOrigins(List.of("http://localhost:5173", "https://one-peak-juntos-a-la-cima-950650313451.us-west1.run.app", "https://creative-seahorse-94f833.netlify.app"));
+        configuration.setAllowedOrigins(List.of("http://localhost:5173", "https://one-peak-juntos-a-la-cima-950650313451.us-west1.run.app",  "https://creative-seahorse-94f833.netlify.app", "https://one-peak-juntos-a-la-cima.netlify.app/"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
