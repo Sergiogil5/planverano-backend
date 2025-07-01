@@ -50,9 +50,9 @@ public class RegistroService {
         mapaTemporal.put("GOLS8842", "LORENZO STOICA");
         mapaTemporal.put("GOPL3177", "PABLO LACOMA");
         mapaTemporal.put("GOJM9403", "JAVI MIRAMON");
-        mapaTemporal.put("GOVP6650", "VICTOR PARDOS");
+        mapaTemporal.put("GOVP6650", "NEIZAN AZNAR");
         mapaTemporal.put("GOLG2086", "LUCAS GAUDES");
-        mapaTemporal.put("GOME5714", "MARCOS EZQUERRA");
+        mapaTemporal.put("GOME5714", "MARCOS AZNAR");
         mapaTemporal.put("GOJG1390", "JORGE GOMEZ");
         mapaTemporal.put("GOAT7829", "CHEIK");
         mapaTemporal.put("GODC4551", "JORGE PELIJERO");

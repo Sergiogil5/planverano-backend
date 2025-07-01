@@ -1,4 +1,4 @@
-package com.entrenamiento.planverano.config;
+package com.entrenamiento.planverano.config; // Paquete correcto
 
 import com.entrenamiento.planverano.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,10 +31,9 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    // --- ¡DEPENDENCIAS CORREGIDAS! ---
-    // Ya no inyectamos el filtro aquí para romper el ciclo.
-    private final UserRepository userRepository;
-
+    // La inyección de dependencias ahora es correcta y no cíclica
+    private final JwtAuthenticationFilter jwtAuthFilter;
+    private final UserRepository userRepository; // Necesario para UserDetailsService
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -49,9 +48,6 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
-        // --- ¡VERSIÓN MODERNA Y NO OBSOLETA! ---
-        // Ya no se usa el constructor deprecated.
-        // Se crea la instancia y luego se configuran las propiedades.
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService());
         authProvider.setPasswordEncoder(passwordEncoder());
@@ -66,10 +62,7 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of(
-                "http://localhost:5173",
-                "https://one-peak-juntos-a-la-cima.netlify.app"
-        ));
+        configuration.setAllowedOrigins(List.of("http://localhost:5173", "https://one-peak-juntos-a-la-cima.netlify.app"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -78,7 +71,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthenticationFilter jwtAuthFilter) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .cors(withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
@@ -87,7 +80,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authenticationProvider()) // Llama al método del bean
+                .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
