@@ -16,7 +16,7 @@ public class ProgresoJugador {
     private User usuario;
 
     // Relación con la sesión que completó
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER) // <-- ¡AQUÍ ESTÁ EL CAMBIO!
     @JoinColumn(name = "sesion_diaria_id", nullable = false)
     private SesionDiaria sesion;
 
