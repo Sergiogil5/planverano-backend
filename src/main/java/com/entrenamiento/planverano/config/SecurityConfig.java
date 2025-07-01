@@ -1,4 +1,4 @@
-package com.entrenamiento.planverano.config; // Paquete correcto
+package com.entrenamiento.planverano.config;
 
 import com.entrenamiento.planverano.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,9 +31,10 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    // La inyección de dependencias ahora es correcta y no cíclica
-    private final JwtAuthenticationFilter jwtAuthFilter;
-    private final UserRepository userRepository; // Necesario para UserDetailsService
+    // ¡CAMBIO CLAVE! Quitamos la dependencia de JwtAuthenticationFilter de aquí.
+    private final UserRepository userRepository;
+
+    // --- BEANS (La mayoría sin cambios) ---
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -70,8 +71,11 @@ public class SecurityConfig {
         return source;
     }
 
+    // --- CADENA DE FILTROS ---
+    // ¡CAMBIO CLAVE! Recibe el JwtAuthenticationFilter como parámetro.
+    // Spring se encargará de crear e inyectar el filtro aquí.
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthenticationFilter jwtAuthFilter) throws Exception {
         http
                 .cors(withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
