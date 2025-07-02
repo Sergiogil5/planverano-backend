@@ -18,8 +18,6 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    // ¡CAMBIO CLAVE 1! Usaremos una clave leída desde las propiedades.
-    // Esta clave es suficientemente larga y segura para el algoritmo HS256.
     @Value("${application.security.jwt.secret-key}")
     private String secretKey;
 
@@ -77,8 +75,8 @@ public class JwtService {
     }
 
     private Key getSignInKey() {
-        // ¡CAMBIO CLAVE 2! El método getSignInKey ahora es consistente.
-        byte[] keyBytes = Decoders.BASE64.decode(this.secretKey);
+        // ¡CORRECCIÓN APLICADA AQUÍ!
+        byte[] keyBytes = secretKey.getBytes(java.nio.charset.StandardCharsets.UTF_8);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }
