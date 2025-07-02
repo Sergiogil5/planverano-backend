@@ -63,7 +63,7 @@ public class User implements UserDetails {
     @Override
     @JsonIgnore // ¡NUEVO! Ignoramos este método complejo en el JSON
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_" + rol.name())); // Ej: "ROLE_ENTRENADOR";
+        return List.of(new SimpleGrantedAuthority(rol.name())); // Ej: "ROLE_ENTRENADOR";
     }
 
     @Override
