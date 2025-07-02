@@ -33,7 +33,16 @@ public class SecurityConfig {
                 .cors(withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
+                        // 1. Rutas Públicas (sin cambios)
                         .requestMatchers("/api/auth/**", "/api/registro/**").permitAll()
+
+                        // 2. Rutas de ENTRENADOR
+                        // Solo los usuarios con rol 'ENTRENADOR' pueden acceder a estas rutas.
+                        .requestMatchers("/api/users/**", "/api/progreso/jugador/**").hasAuthority("ENTRENADOR")
+
+                        // 3. Rutas de JUGADOR (o cualquier usuario autenticado)
+                        // Cualquier usuario autenticado (jugador o entrenador) puede acceder al resto.
+                        // Esto incluye /api/training/semana/*, /api/progreso/mis-progresos, etc.
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
