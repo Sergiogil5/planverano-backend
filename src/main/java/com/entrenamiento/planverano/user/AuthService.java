@@ -5,6 +5,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class AuthService {
@@ -12,6 +14,8 @@ public class AuthService {
     private final UserRepository userRepository;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private static final Logger log = LoggerFactory.getLogger(AuthService.class);
+
 
     public AuthService(UserRepository userRepository, JwtService jwtService, AuthenticationManager authenticationManager) {
         this.userRepository = userRepository;
