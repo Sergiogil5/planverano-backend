@@ -23,7 +23,6 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    // Ahora solo depende de estos dos, que NO dependen de SecurityConfig
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
 
@@ -33,16 +32,11 @@ public class SecurityConfig {
                 .cors(withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        // 1. Rutas Públicas (sin cambios)
+                        // REGLA 1: Login y Registro son públicos.
                         .requestMatchers("/api/auth/**", "/api/registro/**").permitAll()
 
-                        // 2. Rutas de ENTRENADOR
-                        // Solo los usuarios con rol 'ENTRENADOR' pueden acceder a estas rutas.
-                        .requestMatchers("/api/users/**", "/api/progreso/jugador/**").hasAuthority("ENTRENADOR")
-
-                        // 3. Rutas de JUGADOR (o cualquier usuario autenticado)
-                        // Cualquier usuario autenticado (jugador o entrenador) puede acceder al resto.
-                        // Esto incluye /api/training/semana/*, /api/progreso/mis-progresos, etc.
+                        // REGLA 2: CUALQUIER OTRA RUTA solo necesita que el usuario esté autenticado.
+                        // No importa el rol. Si el token es válido, se debe poder acceder.
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -52,7 +46,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // El bean de CORS se queda aquí porque está relacionado con la seguridad HTTP
+    // Bean de CORS (sin cambios)
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
