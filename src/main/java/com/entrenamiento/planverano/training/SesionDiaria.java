@@ -23,7 +23,7 @@ public class SesionDiaria {
     // Una sesión tiene una lista de bloques de ejercicios.
     // El "CascadeType.ALL" y "orphanRemoval=true" significa que si borramos una sesión,
     // también se borran todos sus bloques asociados.
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "sesion_diaria_id") // Clave foránea en la tabla BloqueEjercicio
     private List<BloqueEjercicio> bloques;
 

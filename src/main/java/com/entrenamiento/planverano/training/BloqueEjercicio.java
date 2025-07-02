@@ -15,7 +15,7 @@ public class BloqueEjercicio {
     private int repeticionesBloque; // Cuántas veces se repite el circuito (ej: 3)
     private int descansoEntreBloquesSeg; // Descanso después de cada vuelta del circuito
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "bloque_ejercicio_id")
     private List<PasoEjercicio> pasos;
 
