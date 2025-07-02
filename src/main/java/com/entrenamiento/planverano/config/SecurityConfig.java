@@ -38,10 +38,11 @@ public class SecurityConfig {
                         .requestMatchers("/api/users/me").authenticated()
                         // Solo JUGADOR puede acceder a su propio progreso
                         .requestMatchers("/api/progreso/mis-progresos", "/api/progreso/mi-pausa")
-                        .hasAuthority("JUGADOR")
+                        .hasRole("JUGADOR")
                         // 3. Rutas del Panel de Administrador (solo para ENTRENADOR).
                         //    Usa hasAuthority para una comparación directa.
-                        .requestMatchers("/api/users/**", "/api/progreso/jugador/**").hasAuthority("ENTRENADOR")
+                        .requestMatchers("/api/users/**", "/api/progreso/jugador/**")
+                        .hasRole("ENTRENADOR")
                         // 4. El resto de las rutas son para CUALQUIER usuario autenticado.
                         //    Esto incluye explícitamente /api/progreso/mis-progresos
                         .anyRequest().authenticated()
