@@ -58,6 +58,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
                 log.info("Se estableció Authentication en el contexto para {}", userEmail);
+                System.out.println(">>> Autoridades actuales: "
+                        + SecurityContextHolder.getContext()
+                        .getAuthentication()
+                        .getAuthorities());
             }
         }
 
