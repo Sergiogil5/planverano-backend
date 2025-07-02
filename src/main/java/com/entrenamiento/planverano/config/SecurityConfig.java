@@ -32,11 +32,8 @@ public class SecurityConfig {
                 .cors(withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        // REGLA 1: Login y Registro son públicos.
                         .requestMatchers("/api/auth/**", "/api/registro/**").permitAll()
-
-                        // REGLA 2: CUALQUIER OTRA RUTA solo necesita que el usuario esté autenticado.
-                        // No importa el rol. Si el token es válido, se debe poder acceder.
+                        .requestMatchers("/api/users/**", "/api/progreso/jugador/**").hasRole("ENTRENADOR")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
