@@ -27,13 +27,14 @@ public class AuthService {
         );
 
         // 2. Si la autenticación fue exitosa, buscamos al usuario para generar el token.
-        UserDetails user = userRepository.findByEmail(request.email())
+        // Buscamos al usuario completo
+        var user = userRepository.findByEmail(request.email())
                 .orElseThrow(() -> new IllegalStateException("Usuario no encontrado después de la autenticación"));
 
-        // 3. Generamos la "tarjeta-llave" (token)
+        // Generamos el token
         String token = jwtService.generateToken(user);
 
         // 4. Devolvemos la respuesta con el token.
-        return new LoginResponse(token);
+        return new LoginResponse(token, user);
     }
 }
