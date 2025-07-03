@@ -64,7 +64,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         .getAuthorities());
             }
         }
-
+        log.info("🔐 Context Authentication activo: {}",
+                SecurityContextHolder.getContext().getAuthentication());
         filterChain.doFilter(request, response);
     }
 }
