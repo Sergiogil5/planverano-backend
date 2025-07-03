@@ -33,10 +33,13 @@ public class ProgresoController {
     // Endpoint para que un ENTRENADOR vea el progreso de un jugador específico
     // NOTA: Más adelante aseguraremos que solo los entrenadores puedan llamar a este endpoint.
     @GetMapping("/jugador/{jugadorId}")
-    public ResponseEntity<List<ProgresoJugador>> getProgresoDeJugador(@PathVariable Long jugadorId) {
-        List<ProgresoJugador> progresos = progresoService.getProgresoPorJugador(jugadorId);
-        return ResponseEntity.ok(progresos);
+    public ResponseEntity<List<ProgresoJugadorAdminDTO>> getProgresoDeJugador(
+            @PathVariable Long jugadorId) {
+        List<ProgresoJugadorAdminDTO> dtos =
+                progresoService.getProgresoPorJugadorAdminDTO(jugadorId);
+        return ResponseEntity.ok(dtos);
     }
+
 
     // Endpoint para que el usuario autenticado pida TODO su progreso guardado
     @GetMapping("/mis-progresos")

@@ -105,4 +105,53 @@ public class ProgresoService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public List<ProgresoJugadorAdminDTO> getProgresoPorJugadorAdminDTO(Long jugadorId) {
+        return progresoRepository.findByUsuarioId(jugadorId).stream()
+                .map(p -> {
+                    // 1) Mapeo de bloques y sus pasos a DTOs
+                    List<BloqueEjercicioDTO> bloquesDto = p.getSesion().getBloques().stream()
+                            .map(b -> new BloqueEjercicioDTO(
+                                    b.getId(),
+                                    b.getOrden(),
+                                    b.getRepeticionesBloque(),
+                                    b.getDescansoEntreBloquesSeg(),
+                                    b.getPasos().stream()
+                                            .map(px -> new PasoEjercicioDTO(
+                                                    px.getId(),
+                                                    px.getOrden(),
+                                                    px.getNombreEjercicio(),
+                                                    px.getTipoMedida().name(),
+                                                    px.getCantidad(),
+                                                    px.getDescansoDespuesSeg(),
+                                                    px.getGifUrl()
+                                            ))
+                                            .collect(Collectors.toList())
+                            ))
+                            .collect(Collectors.toList());
+
+                    // 2) Crear DTO de sesión con sus bloques
+                    SesionDiariaDTO sesionDto = new SesionDiariaDTO(
+                            p.getSesion().getId(),
+                            p.getSesion().getNumeroSemana(),
+                            p.getSesion().getTitulo(),
+                            bloquesDto
+                    );
+
+                    // 3) Retornar el DTO completo de progreso
+                    return new ProgresoJugadorAdminDTO(
+                            p.getId(),
+                            sesionDto,
+                            p.getFechaCompletado(),
+                            p.getFeedbackEmoji(),
+                            p.getFeedbackLabel(),
+                            p.getFeedbackTextoOpcional(),
+                            p.getTiemposJson(),
+                            p.getRutaGpsJson()
+                    );
+                })
+                .collect(Collectors.toList());
+    }
+
+
 }
