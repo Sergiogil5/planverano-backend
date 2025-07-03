@@ -93,6 +93,8 @@ public class ProgresoService {
                 .map(p -> new ProgresoJugadorDTO(
                         p.getId(),
                         p.getSesion().getId(),
+                        p.getSesion().getNumeroSemana(),   // ← extrae número de semana
+                        p.getSesion().getTitulo(),         // ← extrae título de sesión
                         p.getFechaCompletado(),
                         p.getFeedbackEmoji(),
                         p.getFeedbackLabel(),

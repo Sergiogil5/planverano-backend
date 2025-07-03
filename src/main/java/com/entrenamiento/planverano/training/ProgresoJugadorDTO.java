@@ -7,6 +7,8 @@ public class ProgresoJugadorDTO {
 
     private Long id;
     private Long sesionDiariaId;
+    private int numeroSemana;       // ← nuevo
+    private String tituloSesion;    // ← nuevo
     private LocalDateTime fechaCompletado;
     private String feedbackEmoji;
     private String feedbackLabel;
@@ -18,6 +20,8 @@ public class ProgresoJugadorDTO {
     public ProgresoJugadorDTO(
             Long id,
             Long sesionDiariaId,
+            int numeroSemana,
+            String tituloSesion,
             LocalDateTime fechaCompletado,
             String feedbackEmoji,
             String feedbackLabel,
@@ -27,6 +31,8 @@ public class ProgresoJugadorDTO {
     ) {
         this.id = id;
         this.sesionDiariaId = sesionDiariaId;
+        this.numeroSemana = numeroSemana;
+        this.tituloSesion = tituloSesion;
         this.fechaCompletado = fechaCompletado;
         this.feedbackEmoji = feedbackEmoji;
         this.feedbackLabel = feedbackLabel;
@@ -42,6 +48,14 @@ public class ProgresoJugadorDTO {
 
     public Long getSesionDiariaId() {
         return sesionDiariaId;
+    }
+
+    public int getNumeroSemana() {
+        return numeroSemana;
+    }
+
+    public String getTituloSesion() {
+        return tituloSesion;
     }
 
     public LocalDateTime getFechaCompletado() {
