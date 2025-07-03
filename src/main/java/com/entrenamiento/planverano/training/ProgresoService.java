@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import com.entrenamiento.planverano.training.ProgresoJugadorDTO;
+import java.util.stream.Collectors;
 import java.util.List;
 import java.util.Optional; // Asegúrate de que esta importación está
 
@@ -81,4 +83,24 @@ public class ProgresoService {
     public List<ProgresoJugador> getProgresoPorJugador(Long usuarioId) {
         return progresoRepository.findByUsuarioId(usuarioId);
     }
+    @Transactional(readOnly = true)
+    public List<ProgresoJugadorDTO> getProgresoPorJugadorDTO(Long jugadorId) {
+        // Obtenemos entidades dentro de la transacción
+        List<ProgresoJugador> entidades = progresoRepository.findByUsuarioId(jugadorId);
+
+        // Mapear cada entidad a un DTO
+        return entidades.stream()
+                .map(p -> new ProgresoJugadorDTO(
+                        p.getId(),
+                        p.getSesion().getId(),
+                        p.getFechaCompletado(),
+                        p.getFeedbackEmoji(),
+                        p.getFeedbackLabel(),
+                        p.getFeedbackTextoOpcional(),
+                        p.getTiemposJson(),
+                        p.getRutaGpsJson()
+                ))
+                .collect(Collectors.toList());
+    }
+
 }

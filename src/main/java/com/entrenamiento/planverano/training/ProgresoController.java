@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import com.entrenamiento.planverano.training.ProgresoJugadorDTO;
 
 import java.util.List;
 
@@ -39,10 +40,13 @@ public class ProgresoController {
 
     // Endpoint para que el usuario autenticado pida TODO su progreso guardado
     @GetMapping("/mis-progresos")
-    public ResponseEntity<List<ProgresoJugador>> getMisProgresos(Authentication authentication) {
+    public ResponseEntity<List<ProgresoJugadorDTO>> getMisProgresos(Authentication authentication) {
         User usuarioActual = (User) authentication.getPrincipal();
-        return ResponseEntity.ok(progresoService.getProgresoPorJugador(usuarioActual.getId()));
+        List<ProgresoJugadorDTO> dtos =
+                progresoService.getProgresoPorJugadorDTO(usuarioActual.getId());
+        return ResponseEntity.ok(dtos);
     }
+
 
     // Endpoint para que el usuario autenticado pida su sesión pausada, si existe
     @GetMapping("/mi-pausa")
