@@ -15,6 +15,9 @@ public class ProgresoJugadorDTO {
     private String feedbackTextoOpcional;
     private String tiemposJson;
     private String rutaGpsJson;
+    private String actividadLibre;
+    private String tiempoLibre;
+
 
     // Constructor con todos los campos
     public ProgresoJugadorDTO(
@@ -27,7 +30,9 @@ public class ProgresoJugadorDTO {
             String feedbackLabel,
             String feedbackTextoOpcional,
             String tiemposJson,
-            String rutaGpsJson
+            String rutaGpsJson,
+            String actividadLibre,
+            String tiempoLibre
     ) {
         this.id = id;
         this.sesionDiariaId = sesionDiariaId;
@@ -39,6 +44,8 @@ public class ProgresoJugadorDTO {
         this.feedbackTextoOpcional = feedbackTextoOpcional;
         this.tiemposJson = tiemposJson;
         this.rutaGpsJson = rutaGpsJson;
+        this.actividadLibre = actividadLibre;
+        this.tiempoLibre = tiempoLibre;
     }
 
     // Getters (sin setters; el DTO es inmutable desde el controlador)
@@ -81,4 +88,8 @@ public class ProgresoJugadorDTO {
     public String getRutaGpsJson() {
         return rutaGpsJson;
     }
+
+    public String getActividadLibre() { return actividadLibre; }
+    public String getTiempoLibre() { return tiempoLibre; }
+
 }

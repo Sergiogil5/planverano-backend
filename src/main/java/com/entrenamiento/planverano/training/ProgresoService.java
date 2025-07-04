@@ -48,6 +48,9 @@ public class ProgresoService {
         nuevoProgreso.setFeedbackTextoOpcional(request.feedbackTextoOpcional());
         nuevoProgreso.setTiemposJson(request.tiemposJson());
         nuevoProgreso.setRutaGpsJson(request.rutaGpsJson());
+        nuevoProgreso.setActividadLibre(request.actividadLibre());
+        nuevoProgreso.setTiempoLibre(request.tiempoLibre());
+
 
         // 3. Guardamos la nueva entidad.
         return progresoRepository.save(nuevoProgreso);
@@ -100,7 +103,9 @@ public class ProgresoService {
                         p.getFeedbackLabel(),
                         p.getFeedbackTextoOpcional(),
                         p.getTiemposJson(),
-                        p.getRutaGpsJson()
+                        p.getRutaGpsJson(),
+                        p.getActividadLibre(),     // ← aquí
+                        p.getTiempoLibre()         // ← aquí
                 ))
                 .collect(Collectors.toList());
     }
@@ -147,7 +152,9 @@ public class ProgresoService {
                             p.getFeedbackLabel(),
                             p.getFeedbackTextoOpcional(),
                             p.getTiemposJson(),
-                            p.getRutaGpsJson()
+                            p.getRutaGpsJson(),
+                            p.getActividadLibre(),     // ← aquí
+                            p.getTiempoLibre()         // ← aquí
                     );
                 })
                 .collect(Collectors.toList());

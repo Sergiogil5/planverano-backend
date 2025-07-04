@@ -6,5 +6,8 @@ public record ProgresoRequest(
         String feedbackLabel,
         String feedbackTextoOpcional,
         String tiemposJson, // Los tiempos de cada ejercicio en formato JSON
-        String rutaGpsJson // La ruta GPS en formato JSON
+        String rutaGpsJson, // La ruta GPS en formato JSON
+        // ← nuevos campos
+        String actividadLibre,
+        String tiempoLibre
 ) {}

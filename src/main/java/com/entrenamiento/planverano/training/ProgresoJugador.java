@@ -42,6 +42,12 @@ public class ProgresoJugador {
     @Lob // Large Object, para textos muy largos
     private String rutaGpsJson;
 
+    @Column(nullable = true)
+    private String actividadLibre;
+
+    @Column(nullable = true)
+    private String tiempoLibre;
+
     // Getters y Setters
 
 
@@ -116,4 +122,11 @@ public class ProgresoJugador {
     public void setRutaGpsJson(String rutaGpsJson) {
         this.rutaGpsJson = rutaGpsJson;
     }
+
+    public String getActividadLibre() { return actividadLibre; }
+    public void setActividadLibre(String actividadLibre) { this.actividadLibre = actividadLibre; }
+
+    public String getTiempoLibre() { return tiempoLibre; }
+    public void setTiempoLibre(String tiempoLibre) { this.tiempoLibre = tiempoLibre; }
+
 }
