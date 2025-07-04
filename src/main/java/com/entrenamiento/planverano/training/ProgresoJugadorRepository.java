@@ -13,4 +13,6 @@ public interface ProgresoJugadorRepository extends JpaRepository<ProgresoJugador
 
     // Método para buscar todos los progresos de una sesión específica (útil para el admin)
     List<ProgresoJugador> findBySesionId(Long sesionId);
+
+    void deleteByUsuarioId(Long usuarioId);
 }

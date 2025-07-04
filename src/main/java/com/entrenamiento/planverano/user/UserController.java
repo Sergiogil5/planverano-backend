@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
+
 
 import java.util.List;
 
@@ -33,4 +35,13 @@ public class UserController {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build(); // Devuelve un 204 No Content, que significa "Éxito, no hay nada que devolver"
     }
+
+    @DeleteMapping("/api/users/{id}")
+    @PreAuthorize("hasRole('ENTRENADOR')")
+    public ResponseEntity<Void> eliminarJugador(@PathVariable Long id) {
+        userService.eliminarJugadorPorId(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }
